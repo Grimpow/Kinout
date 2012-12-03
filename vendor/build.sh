@@ -12,6 +12,15 @@ BUILDPATH=../build/
 clear
 echo -e "\033[0m"
 echo ============================ KINOUT COMPILER ============================
+
+#Compile Coffee to Javascript
+echo -e "\033[0m     - [COMPILE]: ../src/*.coffee -> "$KINOUT_SOURCES"/*.js\033[0m"
+coffee -c -o $KINOUT_SOURCES ../src/ 
+if test $? -ne 0
+then
+	echo Minification aborted. Please fix CoffeeScript errors first.
+fi
+
 ## Files to compile
 FILES_TO_COMPILE=""
 FILES_TO_JOIN=""
