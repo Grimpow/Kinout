@@ -44,14 +44,19 @@ echo -e "\033[0m     - [BUILD]: "$BUILDPATH"\033[0m"
 java -jar $COMPILER $FILES_TO_COMPILE --js_output_file $BUILDPATH//kinout-$VERSION.js
 echo -e "\033[32m          - kinout-"$VERSION.js"\033[0m"
 
-
 #Stylesheets
+echo -e "\033[0m  [CREATE]: "$KINOUT_STYLESHEETS"\033[33m"
+mkdir $KINOUT_STYLESHEETS
 FILES_TO_COMPRESS=""
 echo -e "\033[0m  [DIR]: "$KINOUT_STYLESHEETS"\033[33m"
-FILES=(reset layout media widgets)
+FILES=(reset layout media widgets theme.kinout)
 for file in "${FILES[@]}"
 do
-    echo "    - Compressing "$KINOUT_STYLESHEETS$file".css ..."
+
+	echo -e "\033[0m    - [COMPILE]: ../stylesheets/"$file".less -> "$KINOUT_STYLESHEETS$file".css\033[0m"
+	lessc -x --strict-imports ../stylesheets/$file.less $KINOUT_STYLESHEETS$file.css
+
+    echo "    - [COMPRESS] "$KINOUT_STYLESHEETS$file".css ..."
     FILES_TO_COMPRESS=$FILES_TO_COMPRESS" "$KINOUT_STYLESHEETS$file".css"
 done
 echo -e "\033[0m    - [BUILD]: "$BUILDPATH"\033[0m"
